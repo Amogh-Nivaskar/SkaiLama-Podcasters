@@ -1,5 +1,6 @@
-import { STORAGE_KEY } from "@/contexts/userAuth";
+import { BASE_URL, STORAGE_KEY } from "@/contexts/userAuth";
 import AxiosClient from "@/utils/axios";
+import axios from "axios";
 
 const { createSlice } = require("@reduxjs/toolkit");
 
@@ -50,8 +51,8 @@ const projectSlice = createSlice({
 export async function createProject(name) {
   try {
     const userId = localStorage.getItem(STORAGE_KEY);
-    const res = await AxiosClient.post(
-      `/project/`,
+    const res = await axios.post(
+      `${BASE_URL}/project/`,
       { name },
       { headers: { Authorization: userId } }
     );
@@ -64,7 +65,7 @@ export async function createProject(name) {
 export async function getProjectById(id) {
   try {
     const userId = localStorage.getItem(STORAGE_KEY);
-    const res = await AxiosClient.get(`/project/${id}`, {
+    const res = await axios.get(`${BASE_URL}/project/${id}`, {
       headers: { Authorization: userId },
     });
     console.log(res.data);
@@ -77,8 +78,8 @@ export async function getProjectById(id) {
 export async function createEpisode(projectId, name, link) {
   try {
     const userId = localStorage.getItem(STORAGE_KEY);
-    const res = await AxiosClient.post(
-      `/project/${projectId}/episode`,
+    const res = await axios.post(
+      `${BASE_URL}/project/${projectId}/episode`,
       { name, link },
       { headers: { Authorization: userId } }
     );
@@ -91,8 +92,8 @@ export async function createEpisode(projectId, name, link) {
 export async function deleteEpisode(projectId, episodeId) {
   try {
     const userId = localStorage.getItem(STORAGE_KEY);
-    const res = await AxiosClient.delete(
-      `/project/${projectId}/episode/${episodeId}`,
+    const res = await axios.delete(
+      `${BASE_URL}/project/${projectId}/episode/${episodeId}`,
       { headers: { Authorization: userId } }
     );
     return res.data.episode;
@@ -108,8 +109,8 @@ export async function updateEpisodeTranscript(
 ) {
   try {
     const userId = localStorage.getItem(STORAGE_KEY);
-    const res = await AxiosClient.post(
-      `/project/${projectId}/episode/${episodeId}`,
+    const res = await axios.post(
+      `${BASE_URL}/project/${projectId}/episode/${episodeId}`,
       { transcript },
       { headers: { Authorization: userId } }
     );
@@ -126,8 +127,8 @@ export async function updateGeneralConfiguration(
 ) {
   try {
     const userId = localStorage.getItem(STORAGE_KEY);
-    const res = await AxiosClient.post(
-      `/project/${projectId}/widgetConfiguration/general`,
+    const res = await axios.post(
+      `${BASE_URL}/project/${projectId}/widgetConfiguration/general`,
       { generalConfigParams },
       { headers: { Authorization: userId } }
     );
@@ -151,8 +152,8 @@ export async function updateDisplayConfiguration(
 
     if (formData) {
       console.log("image");
-      const res1 = await AxiosClient.post(
-        `/project/${projectId}/image`,
+      const res1 = await axios.post(
+        `${BASE_URL}/project/${projectId}/image`,
         formData,
         {
           headers: {
@@ -163,8 +164,8 @@ export async function updateDisplayConfiguration(
       );
       console.log(res1.data.imageUrl);
     }
-    const res2 = await AxiosClient.post(
-      `/project/${projectId}/widgetConfiguration/display`,
+    const res2 = await axios.post(
+      `${BASE_URL}/project/${projectId}/widgetConfiguration/display`,
       displayConfigParams,
       { headers: { Authorization: userId } }
     );
