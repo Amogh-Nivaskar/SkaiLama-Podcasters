@@ -1,5 +1,7 @@
 "use client";
 
+import axios from "axios";
+
 const { default: AxiosClient } = require("@/utils/axios");
 const { createContext, useReducer, useContext } = require("react");
 
@@ -26,6 +28,8 @@ function reducer(state, action) {
   }
 }
 
+export const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export const STORAGE_KEY = "__USER_ID__";
 
 function AuthProvider({ children }) {
@@ -33,9 +37,9 @@ function AuthProvider({ children }) {
 
   async function login(email) {
     try {
-      const res = await AxiosClient.post("/user/login", { email }).catch(
-        (error) => error.response
-      );
+      const res = await axios
+        .post(`${BASE_URL}/user/login`, { email })
+        .catch((error) => error.response);
 
       if (res.status === 200 || res.status === 201) {
         const user = res.data.user;
@@ -51,11 +55,13 @@ function AuthProvider({ children }) {
   async function checkAuth() {
     try {
       const userId = localStorage.getItem(STORAGE_KEY);
-      const res = await AxiosClient.post("/user/checkAuth", null, {
-        headers: {
-          Authorization: userId,
-        },
-      }).catch((error) => error.response);
+      const res = await axios
+        .post(`${BASE_URL}/user/checkAuth`, null, {
+          headers: {
+            Authorization: userId,
+          },
+        })
+        .catch((error) => error.response);
 
       if (res.status === 200 || res.status === 201) {
         const user = res.data.user;
@@ -71,15 +77,17 @@ function AuthProvider({ children }) {
   async function updateUserName(name) {
     try {
       const userId = localStorage.getItem(STORAGE_KEY);
-      const res = await AxiosClient.post(
-        "/user/",
-        { name },
-        {
-          headers: {
-            Authorization: userId,
-          },
-        }
-      ).catch((error) => error.response);
+      const res = await axios
+        .post(
+          `${BASE_URL}/user/`,
+          { name },
+          {
+            headers: {
+              Authorization: userId,
+            },
+          }
+        )
+        .catch((error) => error.response);
 
       if (res.status === 200 || res.status === 201) {
         const user = res.data.user;
