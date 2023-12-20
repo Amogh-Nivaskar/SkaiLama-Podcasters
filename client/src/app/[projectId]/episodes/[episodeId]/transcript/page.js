@@ -43,7 +43,12 @@ function Page() {
     console.log(episode);
   }
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading)
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-3 h-96">

@@ -25,7 +25,12 @@ function Page() {
   const dispatch = useDispatch();
   const [episodeModelIsOpen, setEpisodeModelIsOpen] = useState(false);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading)
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
 
   async function handleDeleteEpisode(episodeId) {
     dispatch(setIsLoading(true));

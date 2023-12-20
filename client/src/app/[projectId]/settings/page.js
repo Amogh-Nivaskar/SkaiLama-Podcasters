@@ -33,7 +33,7 @@ function Page() {
             value={newUsername}
             disabled={editIsOn === false}
             onChange={(e) => setNewUsername(e.target.value)}
-            className="focus:outline-none border border-slate-400 rounded-md w-full px-2"
+            className="focus:outline-none border border-slate-400 rounded-md w-full px-2 py-1"
           />
 
           <div className=" flex justify-start gap-4">
@@ -71,7 +71,7 @@ function Page() {
             type="text"
             value={user.email}
             disabled={true}
-            className="focus:outline-none border border-slate-400 rounded-md w-full px-2"
+            className="focus:outline-none border border-slate-400 rounded-md w-full px-2 py-1"
           />
           <button className=" text-white   px-2 py-1 rounded-md font-semibold cursor-default ">
             Discard
