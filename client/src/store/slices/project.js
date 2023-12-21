@@ -150,6 +150,12 @@ export async function updateDisplayConfiguration(
   try {
     const userId = localStorage.getItem(STORAGE_KEY);
 
+    const res2 = await axios.post(
+      `${BASE_URL}/project/${projectId}/widgetConfiguration/display`,
+      displayConfigParams,
+      { headers: { Authorization: userId } }
+    );
+
     if (formData) {
       console.log("image");
       const res1 = await axios.post(
@@ -164,11 +170,6 @@ export async function updateDisplayConfiguration(
       );
       console.log(res1.data.imageUrl);
     }
-    const res2 = await axios.post(
-      `${BASE_URL}/project/${projectId}/widgetConfiguration/display`,
-      displayConfigParams,
-      { headers: { Authorization: userId } }
-    );
   } catch (error) {
     console.log(error);
   }
