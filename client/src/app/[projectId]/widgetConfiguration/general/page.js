@@ -62,7 +62,7 @@ function Page() {
             type="text"
             onChange={(e) =>
               setNewGeneralConfig((newGeneralConfig) => {
-                return { ...newGeneralConfig, wel: e.target.value };
+                return { ...newGeneralConfig, welcomeMessage: e.target.value };
               })
             }
           />
